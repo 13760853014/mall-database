@@ -1,0 +1,27 @@
+spring:
+  profiles: dev
+  application:
+    name: mall-share-service
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+    #date-format: yyyy-MM-dd HH:mm:ss
+    #time-zone: GMT+8
+
+  data:
+    mongodb:
+      uri: mongodb://172.24.30.31:27017/mall-cart
+  redis:
+    host: 172.24.30.6
+    port: 6379
+    password: redis_jk20190911
+    database: 0
+
+logging:
+ level:
+  root: INFO
+  org.springframework: INFO
+  org.mybatis: WARN
+  com.jianke.mall: INFO
+
+springfox.documentation.swagger.v2.path: /api-docs
