@@ -1,9 +1,9 @@
-package com.jianke.mall.service.impl;
+package com.jianke.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.jianke.mall.entity.ShopCart;
-import com.jianke.mall.repository.ShopCartRepository;
-import com.jianke.mall.service.ShopCartMongoService;
+import com.jianke.entity.ShopCart;
+import com.jianke.repository.ShopCartRepository;
+import com.jianke.service.ShopCartMongoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

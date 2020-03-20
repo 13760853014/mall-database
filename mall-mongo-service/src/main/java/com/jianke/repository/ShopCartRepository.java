@@ -1,6 +1,6 @@
-package com.jianke.mall.repository;
+package com.jianke.repository;
 
-import com.jianke.mall.entity.ShopCart;
+import com.jianke.entity.ShopCart;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

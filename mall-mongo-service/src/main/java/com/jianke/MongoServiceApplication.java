@@ -1,4 +1,4 @@
-package com.jianke.mall;
+package com.jianke;
 
 
 import org.springframework.boot.SpringApplication;

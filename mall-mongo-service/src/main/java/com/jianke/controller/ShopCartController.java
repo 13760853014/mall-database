@@ -1,10 +1,10 @@
-package com.jianke.mall.controller;
+package com.jianke.controller;
 
-import com.jianke.mall.entity.ShopCart;
-import com.jianke.mall.entity.cart.Merchant;
-import com.jianke.mall.entity.cart.ShopCartBase;
-import com.jianke.mall.repository.CartRepository;
-import com.jianke.mall.repository.ShopCartRepository;
+import com.jianke.entity.ShopCart;
+import com.jianke.entity.cart.Merchant;
+import com.jianke.entity.cart.ShopCartBase;
+import com.jianke.repository.CartRepository;
+import com.jianke.repository.ShopCartRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,15 +13,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/svc/compare")
@@ -71,6 +66,8 @@ public class ShopCartController {
                 }
             }
         }
+        System.out.println(results.size());
+        System.out.println(results.stream().map(s -> s.getAccountId()).collect(Collectors.joining(",")));
         return results;
     }
 
@@ -91,19 +88,33 @@ public class ShopCartController {
      *
      * @return
      */
+    @PutMapping(value = "/{accountId}")
+    public CompareResult syncByAccountId(@PathVariable("accountId") String accountId) throws Exception {
+        ShopCartBase shopCartBase = cartRepository.get(accountId);
+        ShopCart shopCart = shopCartRepository.save(new ShopCart(accountId, shopCartBase.getMerchants()));
+        return new CompareResult(accountId, shopCart, shopCartBase);
+    }
+
+    /**
+     * 获取购物车
+     *
+     * @return
+     */
     @GetMapping(value = "/sku/{sku}")
     public List<ShopCart> getBySku(@PathVariable("sku") Long sku) throws Exception {
         Query query = new Query();
         query.addCriteria(Criteria.where("merchants.items.productCode").is(sku));
-        query.addCriteria(Criteria.where("merchants.merchantCode").is(1));
-        query.addCriteria(Criteria.where("merchants.items.combineNum").is(0));
-        //query.addCriteria(Criteria.where("merchants.items.addDate").gt(getDelayDate(90)));
+        query.addCriteria(Criteria.where("merchants.items.addDate").gt(getDelayDate(-90)));
+        query.addCriteria(Criteria.where("merchants.items.addPrice").gte(9000));
         //计算总数
         long total = mongoTemplate.count(query, ShopCart.class);
         System.out.println("total=" + total);
+        List<ShopCart> accountIds = mongoTemplate.find(query, ShopCart.class, "accountId");
         List<ShopCart> shopCarts = mongoTemplate.find(query, ShopCart.class);
         return shopCarts;
     }
+
+
 
     public static Date getDelayDate(Integer deleyDate) {
         Calendar cal = Calendar.getInstance();

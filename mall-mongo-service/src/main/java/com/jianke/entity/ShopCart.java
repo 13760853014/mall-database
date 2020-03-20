@@ -1,6 +1,6 @@
-package com.jianke.mall.entity;
+package com.jianke.entity;
 
-import com.jianke.mall.entity.cart.Merchant;
+import com.jianke.entity.cart.Merchant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
-package com.jianke.mall.repository;
+package com.jianke.repository;
 
 import com.alibaba.fastjson.JSON;
-import com.jianke.mall.entity.cart.ShopCartBase;
+import com.jianke.entity.cart.ShopCartBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;

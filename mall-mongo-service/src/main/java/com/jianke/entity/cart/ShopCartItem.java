@@ -1,4 +1,4 @@
-package com.jianke.mall.entity.cart;
+package com.jianke.entity.cart;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
-package com.jianke.mall.service;
+package com.jianke.service;
 
-import com.jianke.mall.entity.ShopCart;
+import com.jianke.entity.ShopCart;
 
 /**
  * 异步保存mongo数据
