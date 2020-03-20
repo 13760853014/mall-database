@@ -1,0 +1,18 @@
+server:
+  port: 8089
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  profiles: default
+  application :
+    name: mall-redis-service
+
+logging:
+ level:
+  root: INFO
+  org.springframework: INFO
+  org.mybatis: WARN
+  com.jianke.mall: INFO
+

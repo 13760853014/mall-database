@@ -1,7 +1,6 @@
 package com.jianke.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.jianke.channel.PostageTemplateChannel;
 import com.jianke.demo.exception.BaseException;
 import com.jianke.demo.utils.BeanUtil;
 import com.jianke.demo.utils.DateUtils;
@@ -40,8 +39,8 @@ public class PostageTemplateServiceImpl implements PostageTemplateService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @Autowired
-    private PostageTemplateChannel postageTemplateChannel;
+//    @Autowired
+//    private PostageTemplateChannel postageTemplateChannel;
 
     @Override
     public PostageTemplateVo insert(PostageTemplateVo templateVo) throws BaseException {
@@ -355,9 +354,9 @@ public class PostageTemplateServiceImpl implements PostageTemplateService {
     private void sendDelayQueue(String id, Date beginDate) {
         long startDelay = DateUtils.getDelay(beginDate) + 5000;
         startDelay = startDelay > 0 ? startDelay : 1000;
-        postageTemplateChannel.publishEvent()
-                .send(MessageBuilder.withPayload(id)
-                .setHeader("x-delay", startDelay).build());
+//        postageTemplateChannel.publishEvent()
+//                .send(MessageBuilder.withPayload(id)
+//                .setHeader("x-delay", startDelay).build());
     }
 
     /**

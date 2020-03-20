@@ -1,0 +1,24 @@
+spring:
+  profiles: dev
+  application:
+    name: mall-redis-service
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+    #date-format: yyyy-MM-dd HH:mm:ss
+    #time-zone: GMT+8
+
+  redis:
+    host: 172.24.30.6
+    port: 6379
+    password: redis_jk20190911
+    database: 2
+
+logging:
+ level:
+  root: INFO
+  org.springframework: INFO
+  org.mybatis: WARN
+  com.jianke.mall: INFO
+
+springfox.documentation.swagger.v2.path: /api-docs

@@ -11,6 +11,7 @@
     <modules>
         <module>mall-mongo-service</module>
         <module>mall-database-util</module>
+        <module>mall-redis-service</module>
     </modules>
 
     <parent>
