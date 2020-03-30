@@ -27,6 +27,7 @@
         <mall-database.version>1.0-SNAPSHOT</mall-database.version>
     </properties>
 
+
     <dependencyManagement>
         <dependencies>
             <dependency>
