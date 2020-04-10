@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -89,5 +90,12 @@ public class PostageTemplateVo implements Serializable {
         private Integer productCode;
         private String productName;
 
+    }
+
+    public void addPostageType(PostageTypeVo vo) {
+        if (postageTypes == null) {
+            postageTypes = new ArrayList<>();
+        }
+        postageTypes.add(vo);
     }
 }

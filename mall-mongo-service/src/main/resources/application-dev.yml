@@ -17,6 +17,61 @@ spring:
     password: redis_jk20190911
     database: 0
 
+  cloud:
+    stream:
+      bindings:
+        postage_template_delay_in_1:
+          destination: postage_template_delay_event_1
+          group: postage_template_local_test
+        postage_template_delay_out_1:
+          destination: postage_template_delay_event_1
+      rabbit:
+        bindings:
+          postage_template_delay_in_1:
+            consumer:
+              declareExchange: true
+          postage_template_delay_out_1:
+            producer:
+              declareExchange: false
+  rabbitmq:
+    addresses: 172.17.250.112
+    port: 5672
+    username: cloud-user
+    password: 123456
+    virtual-host: /cloud
+
+mall:
+  settlement:
+    postage:
+      rules:
+        default:
+          default:  #没单独配置的付款方式使用默认值
+            platforms:
+              default:     #没单独配置的平台使用默认值
+                minMoney: 9900  #包邮门槛
+            transportTypes:
+              m1: #商户1 的快递配置
+                - deliveryType: 0   #快递类型
+                  deliveryName: 普通快递    #名称
+                  cost: 500                 #费用
+                  isDefault: false         #是否默认
+                - deliveryType: 7
+                  deliveryName: 顺丰
+                  cost: 1000
+                  isDefault: true
+          payType1: #货到付款
+            isFree: false  #该支付方式下不包邮
+            transportTypes:
+              m1: #商户1 的快递配置
+                - deliveryType: 0   #快递类型
+                  deliveryName: 普通快递    #名称
+                  cost: 500                 #费用
+                  isDefault: false         #是否默认
+                - deliveryType: 7
+                  deliveryName: 顺丰
+                  cost: 1000
+                  isDefault: true
+
 logging:
  level:
   root: INFO

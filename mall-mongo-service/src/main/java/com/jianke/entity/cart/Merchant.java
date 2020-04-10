@@ -1,8 +1,10 @@
 package com.jianke.entity.cart;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@Accessors(chain = true)
 public class Merchant extends MerchantBase {
 
     /**

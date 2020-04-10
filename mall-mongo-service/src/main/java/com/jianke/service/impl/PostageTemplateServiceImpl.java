@@ -5,6 +5,7 @@ import com.jianke.demo.exception.BaseException;
 import com.jianke.demo.utils.BeanUtil;
 import com.jianke.demo.utils.DateUtils;
 import com.jianke.entity.PostageTemplate;
+import com.jianke.mq.PostageTemplateChannel;
 import com.jianke.service.PostageTemplateService;
 import com.jianke.vo.PostageTemplateParam;
 import com.jianke.vo.PostageTemplateVo;
@@ -39,8 +40,8 @@ public class PostageTemplateServiceImpl implements PostageTemplateService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-//    @Autowired
-//    private PostageTemplateChannel postageTemplateChannel;
+    @Autowired
+    private PostageTemplateChannel postageTemplateChannel;
 
     @Override
     public PostageTemplateVo insert(PostageTemplateVo templateVo) throws BaseException {
@@ -345,6 +346,18 @@ public class PostageTemplateServiceImpl implements PostageTemplateService {
             }
         }
     }
+
+    /**
+     * 发送邮费配置模板 开始的延时消息
+     * @param id
+     */
+    @Override
+    public void sendDelayQueue(String id) {
+        postageTemplateChannel.publishEvent()
+                .send(MessageBuilder.withPayload(id)
+                .setHeader("x-delay", 10000).build());
+    }
+
 
     /**
      * 发送邮费配置模板 开始的延时消息

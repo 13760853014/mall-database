@@ -1,12 +1,15 @@
 package com.jianke.entity.cart;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 购物车商品项
@@ -17,6 +20,7 @@ import java.util.Date;
 @Getter
 @ToString
 @Accessors(chain = true)
+@NoArgsConstructor
 public class ShopCartItem implements Serializable{
     /**
      * 商品项ID,是一个UUID
@@ -54,6 +58,10 @@ public class ShopCartItem implements Serializable{
      * 市场价
      */
     private Long marketPrice;
+    /**
+     * 实际支付价
+     */
+    private Long actualPrice;
     /**
      * 搭配数量
      */
@@ -125,4 +133,33 @@ public class ShopCartItem implements Serializable{
     private Integer inventoryNum = 100;
 
     private String inventoryTip;
+
+    public ShopCartItem(String i) {
+        String[] param = i.split("-");
+        this.productCode = Long.valueOf(param[0]);
+        this.productName = param[1];
+        this.productNum = Integer.valueOf(param[2]);
+        this.actualPrice = Long.valueOf(param[3]);
+        this.isRx = param[4];
+    }
+
+    public List<ShopCartItem> combine(String i, String j, Integer id) {
+        String[] param = i.split("-");
+        String[] param1 = j.split("-");
+        ShopCartItem item = new ShopCartItem()
+                .setCombineId(id.longValue())
+                .setProductCode(Long.valueOf(param[0]))
+                .setProductName(param[1])
+                .setCombineNum(Integer.valueOf(param[2]))
+                .setActualPrice(Long.valueOf(param[3]))
+                .setIsRx(param[4]);
+        ShopCartItem item1 = new ShopCartItem()
+                .setCombineId(id.longValue())
+                .setProductCode(Long.valueOf(param1[0]))
+                .setProductName(param1[1])
+                .setCombineNum(Integer.valueOf(param1[2]))
+                .setActualPrice(Long.valueOf(param1[3]))
+                .setIsRx(param1[4]);
+        return Arrays.asList(item, item1);
+    }
 }

@@ -28,6 +28,8 @@ public interface PostageTemplateService {
 
     List<PostageTemplateVo> findAvailableAll();
 
+    void sendDelayQueue(String id);
+
     void processDelayQueue(String id);
 
     List<PostageTemplateVo> findByProductCodes(List<Integer> productCodes);

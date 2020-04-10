@@ -1,8 +1,6 @@
 package com.jianke.entity.cart;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +12,8 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShopCartBase implements Serializable {
     /**
      * 商家列表
