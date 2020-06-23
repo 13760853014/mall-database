@@ -26,4 +26,5 @@ public class Student implements Serializable {
         this.score = score;
         this.createDate = new Date();
     }
+
 }

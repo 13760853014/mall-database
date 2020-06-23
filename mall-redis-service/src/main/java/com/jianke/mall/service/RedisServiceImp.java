@@ -1,6 +1,7 @@
 package com.jianke.mall.service;
 
 import com.alibaba.fastjson.JSON;
+import com.jianke.mall.aop.TransactionLog;
 import com.jianke.mall.entity.Student;
 import com.jianke.mall.util.RedisKeyUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ public class RedisServiceImp implements RedisService {
     private RedisTemplate redisTemplate;
 
     @Override
+    @TransactionLog
     public void stringDemo() {
         List<String> keys = new ArrayList<>();
         for (long i = 0; i < 10; i++) {
@@ -37,14 +39,19 @@ public class RedisServiceImp implements RedisService {
      */
     @Override
     public void listDemo() {
-        String key = RedisKeyUtil.getStudentKey("listDemo");
-        ListOperations<String, Student> setOperations = redisTemplate.opsForList();
-        for (long i = 0; i < 10; i++) {
-            Student student = new Student(i, "student-" + i, i);
-            setOperations.leftPush(key, student);
-            setOperations.leftPush(key, student);
+        Object obj = "aaa";
+        try {
+            String key = RedisKeyUtil.getStudentKey("listDemo");
+            ListOperations<String, Student> setOperations = redisTemplate.opsForList();
+            for (long i = 0; i < 10; i++) {
+                Student student = new Student(i, "student-" + i, i);
+                setOperations.leftPush(key, student);
+                setOperations.leftPush(key, student);
+            }
+            obj = redisTemplate.opsForList().leftPop(key);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        Object obj = redisTemplate.opsForList().leftPop(key);
         System.out.println(JSON.toJSONString(obj));
     }
 

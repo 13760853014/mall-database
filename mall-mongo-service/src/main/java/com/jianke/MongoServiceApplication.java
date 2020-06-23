@@ -26,9 +26,9 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @SpringBootApplication(exclude = UserDetailsServiceAutoConfiguration.class)
 public class MongoServiceApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(MongoServiceApplication.class, args);
-    }
+//    public static void main(String[] args) {
+//        SpringApplication.run(MongoServiceApplication.class, args);
+//    }
 
     // 解决跨域问题
     @Bean
@@ -60,6 +60,17 @@ public class MongoServiceApplication {
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         //设置超时时间
         return restTemplateBuilder.setConnectTimeout(500000).setReadTimeout(500000).build();
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println("请输入一个整数");
+        int num= 1234;
+        while(num!=0){
+            int a=num%10;
+            System.out.print(a);
+            num=num/10;
+        }
     }
 
 

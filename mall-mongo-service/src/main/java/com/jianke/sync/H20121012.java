@@ -1,6 +1,8 @@
 package com.jianke.sync;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import lombok.Data;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -47,8 +49,41 @@ public class H20121012 {
     }
 
     public static void main(String argv[]) {
-        String filePath = "C:\\Users\\chenguiquan\\Desktop\\药房网产品.txt";
-        readTxtFile(filePath);
+        //String filePath = "C:\\Users\\chenguiquan\\Desktop\\药房网产品.txt";
+        //readTxtFile(filePath);
+        checkText();
+    }
+
+    private static void checkText() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String json = "{\n" +
+                "    \"accessKey\":\"DmolsovUhMs4YQnyOP3Z\",\n" +
+                "    \"data\":{\n" +
+                "        \"text\":\"习近平\",\n" +
+                "        \"tokenId\":\"aaaa\"\n" +
+                "    },\n" +
+                "    \"type\":\"NEWS\"\n" +
+                "}";
+        HttpEntity<HttpHeaders> formEntity = new HttpEntity(json, headers);
+        try {
+            ResponseEntity<String> obj = restTemplate.exchange("http://api.fengkongcloud.com/v2/saas/anti_fraud/text", HttpMethod.POST, formEntity, String.class);
+            Resp r = JSONObject.parseObject(obj.getBody(), Resp.class);
+            System.out.println(JSON.toJSONString(r));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Data
+    public static class Resp {
+        String code;
+        String message;
+        String riskLevel;
+        String score;
+        String detail;
+        String status;
     }
 
     private static void sync(String id) {

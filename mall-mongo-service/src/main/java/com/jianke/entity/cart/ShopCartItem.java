@@ -125,6 +125,7 @@ public class ShopCartItem implements Serializable{
      * 添加到购物车的时间
      */
     private Date addDate;
+    private Date addPriceDate;
     private Integer addNum;
     private Integer addPlatformId;
     private Long addPrice;

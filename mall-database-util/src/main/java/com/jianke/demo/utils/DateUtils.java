@@ -153,4 +153,17 @@ public class DateUtils {
         ZoneId zoneId = ZoneId.systemDefault();
         return instant.atZone(zoneId).toLocalDateTime();
     }
+
+    private static String dateStringFormat(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return year + "年" + month + "月" + day + "日";
+    }
+
+    public static void main(String[] args) {
+        System.out.println(dateStringFormat(new Date()));
+    }
 }

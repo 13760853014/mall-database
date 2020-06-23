@@ -1,5 +1,6 @@
 package com.jianke.mall.resource;
 
+import com.jianke.mall.aop.TransactionLog;
 import com.jianke.mall.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
