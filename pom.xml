@@ -12,6 +12,7 @@
         <module>mall-mongo-service</module>
         <module>mall-database-util</module>
         <module>mall-redis-service</module>
+        <module>mall-elasticSearch-service</module>
     </modules>
 
     <parent>
